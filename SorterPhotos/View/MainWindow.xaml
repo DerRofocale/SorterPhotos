@@ -1,0 +1,71 @@
+﻿<Window
+    x:Class="SorterPhotos.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:SorterPhotos"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodel="clr-namespace:SorterPhotos.ViewModel"
+    Title="MainWindow"
+    Width="900"
+    Height="500"
+    MinWidth="350"
+    MinHeight="250"
+    mc:Ignorable="d">
+    <Window.DataContext>
+        <viewmodel:MainViewModel />
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="30" />
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MinWidth="200" MaxWidth="300" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                </Grid.RowDefinitions>
+                <ListBox
+                    Grid.Row="0"
+                    Margin="3"
+                    SelectionMode="Extended" />
+                <TextBox
+                    Grid.Row="1"
+                    Margin="3"
+                    VerticalContentAlignment="Center"
+                    IsReadOnly="True"
+                    Text="{Binding PathProp}" />
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Button
+                        Grid.Column="0"
+                        Margin="3"
+                        Command="{Binding OpenDirectory}"
+                        Content="Указать путь" />
+                    <Button
+                        Grid.Column="1"
+                        Margin="3"
+                        Content="Отсортировать" />
+
+                </Grid>
+            </Grid>
+            <Border Grid.Column="1" Background="LightGray">
+                <Grid />
+            </Border>
+        </Grid>
+        <TextBlock
+            Grid.Row="1"
+            Margin="3,0,0,3"
+            VerticalAlignment="Center"
+            Text="FileName" />
+    </Grid>
+</Window>
