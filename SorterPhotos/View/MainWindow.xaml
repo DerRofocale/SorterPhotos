@@ -30,17 +30,43 @@
                     <RowDefinition />
                     <RowDefinition Height="30" />
                     <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
                 </Grid.RowDefinitions>
-                <ListBox
-                    Grid.Row="0"
-                    Margin="3"
-                    SelectionMode="Extended" />
-                <TextBox
-                    Grid.Row="1"
-                    Margin="3"
-                    VerticalContentAlignment="Center"
-                    IsReadOnly="True"
-                    Text="{Binding PathProp}" />
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <ListBox
+                        Grid.Column="0"
+                        Margin="3"
+                        ItemsSource="{Binding FilesJPEGProp}"
+                        SelectionMode="Extended" />
+                    <ListBox
+                        Grid.Column="1"
+                        Margin="3"
+                        ItemsSource="{Binding FilesCR2Prop}"
+                        SelectionMode="Extended" />
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBox
+                        Grid.Column="0"
+                        Margin="3"
+                        VerticalContentAlignment="Center"
+                        IsReadOnly="True"
+                        Text="{Binding PathJPEGProp, TargetNullValue=Путь не указан}" />
+                    <TextBox
+                        Grid.Column="1"
+                        Margin="3"
+                        VerticalContentAlignment="Center"
+                        IsReadOnly="True"
+                        Text="{Binding PathCR2Prop, TargetNullValue=Путь не указан}" />
+                </Grid>
                 <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
@@ -49,12 +75,28 @@
                     <Button
                         Grid.Column="0"
                         Margin="3"
-                        Command="{Binding OpenDirectory}"
-                        Content="Указать путь" />
+                        Command="{Binding OpenDirectoryJPEG}"
+                        Content="Путь к JPEG" />
                     <Button
                         Grid.Column="1"
                         Margin="3"
+                        Command="{Binding OpenDirectoryCR2}"
+                        Content="Путь к CR2" />
+
+                </Grid>
+                <Grid Grid.Row="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <!--<ColumnDefinition />-->
+                    </Grid.ColumnDefinitions>
+                    <Button
+                        Grid.Column="0"
+                        Margin="3"
                         Content="Отсортировать" />
+                    <!--<Button
+                        Grid.Column="1"
+                        Margin="3"
+                        Content="Отсортировать" />-->
 
                 </Grid>
             </Grid>
@@ -64,8 +106,9 @@
         </Grid>
         <TextBlock
             Grid.Row="1"
-            Margin="3,0,0,3"
+            Margin="3,0,3,0"
             VerticalAlignment="Center"
-            Text="FileName" />
+            Text="{Binding LastActionProp}"
+            TextAlignment="Right" />
     </Grid>
 </Window>
