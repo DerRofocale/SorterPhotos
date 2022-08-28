@@ -18,7 +18,25 @@ namespace SorterPhotos.ViewModel
         public MainViewModel()
         {
             //string[] second = Directory.GetFiles
+#if DEBUG
+            PathJPEGProp = "G:\\29-08-2022\\ОТОБР\\JPEG";
+            FilesJPEGProp = Directory.GetFiles(PathJPEGProp).ToList();
+            LastActionProp = "Указан путь к директории с JPEG-файлами";
+#endif
         }
+
+
+
+        #region *
+        private bool _isRotateImage;
+        public bool IsRotateImageProp
+        {
+            get { return _isRotateImage; }
+            set { SetProperty(ref _isRotateImage, value); }
+        }
+        #endregion
+
+
 
 
         #region *
@@ -32,18 +50,18 @@ namespace SorterPhotos.ViewModel
 
 
 
-        #region Files
-        private ObservableCollection<string> _filesJPEG;
-        public ObservableCollection<string> FilesJPEGProp
+        #region FilesJPEG
+        private List<string> _filesJPEG = new List<string>();
+        public List<string> FilesJPEGProp
         {
             get { return _filesJPEG; }
             set { SetProperty(ref _filesJPEG, value); }
         }
         #endregion
 
-        #region Files
-        private ObservableCollection<string> _filesCR2;
-        public ObservableCollection<string> FilesCR2Prop
+        #region FilesCR2
+        private List<string> _filesCR2 = new List<string>();
+        public List<string> FilesCR2Prop
         {
             get { return _filesCR2; }
             set { SetProperty(ref _filesCR2, value); }
@@ -83,8 +101,13 @@ namespace SorterPhotos.ViewModel
             FolderBrowserDialog FBD = new FolderBrowserDialog();
             if (FBD.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
+                FilesJPEGProp.Clear();
                 PathCR2Prop = FBD.SelectedPath;
                 LastActionProp = "Указан путь к директории с CR2-файлами";
+            }
+            else
+            {
+                LastActionProp = "Отменён выбор пути к директории с CR2-файлами";
             }
         }
         #endregion
@@ -100,9 +123,14 @@ namespace SorterPhotos.ViewModel
             FolderBrowserDialog FBD = new FolderBrowserDialog();
             if (FBD.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
+                FilesJPEGProp.Clear();
                 PathJPEGProp = FBD.SelectedPath;
-                FilesJPEGProp = new ObservableCollection<string>(Directory.GetFiles(PathJPEGProp).ToList());
+                FilesJPEGProp = Directory.GetFiles(PathJPEGProp).ToList();
                 LastActionProp = "Указан путь к директории с JPEG-файлами";
+            }
+            else
+            {
+                LastActionProp = "Отменён выбор пути к директории с JPEG-файлами";
             }
         }
         #endregion

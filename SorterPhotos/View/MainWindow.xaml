@@ -38,6 +38,7 @@
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <ListBox
+                        x:Name="JPEGList"
                         Grid.Column="0"
                         Margin="3"
                         ItemsSource="{Binding FilesJPEGProp}"
@@ -100,9 +101,44 @@
 
                 </Grid>
             </Grid>
-            <Border Grid.Column="1" Background="LightGray">
-                <Grid />
-            </Border>
+            <Grid Grid.Column="1" Background="LightGray">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="30" />
+                </Grid.RowDefinitions>
+                <Image
+                    Grid.Row="0"
+                    Margin="3"
+                    RenderTransformOrigin="0.5,0.5"
+                    Source="{Binding ElementName=JPEGList, Path=SelectedValue}">
+                    <!--<Image.Source>
+                        <BitmapImage UriSource="{Binding ElementName=JPEGList, Path=SelectedValue}" Rotation="Rotate90" />
+                    </Image.Source>-->
+                    <Image.Style>
+                        <Style TargetType="{x:Type Image}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=rotateCheckBox, Path=IsChecked}" Value="true">
+                                    <Setter Property="RenderTransform">
+                                        <Setter.Value>
+                                            <RotateTransform Angle="-90" />
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Image.Style>
+                </Image>
+                <StackPanel
+                    Grid.Row="1"
+                    Margin="3"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
+                    <CheckBox
+                        x:Name="rotateCheckBox"
+                        Margin="0,0,6,0"
+                        Content="Развернуть изображение" />
+                </StackPanel>
+            </Grid>
         </Grid>
         <TextBlock
             Grid.Row="1"
