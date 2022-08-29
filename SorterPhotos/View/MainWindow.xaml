@@ -6,7 +6,7 @@
     xmlns:local="clr-namespace:SorterPhotos"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewmodel="clr-namespace:SorterPhotos.ViewModel"
-    Title="MainWindow"
+    Title="{Binding TitleProp, UpdateSourceTrigger=PropertyChanged}"
     Width="900"
     Height="500"
     MinWidth="350"
@@ -22,7 +22,7 @@
         </Grid.RowDefinitions>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition MinWidth="200" MaxWidth="300" />
+                <ColumnDefinition MinWidth="200" MaxWidth="350" />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
@@ -41,7 +41,8 @@
                         x:Name="JPEGList"
                         Grid.Column="0"
                         Margin="3"
-                        ItemsSource="{Binding FilesJPEGProp}"
+                        ItemsSource="{Binding FilesJPEGProp, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedItem="{Binding SelectedItemProp, UpdateSourceTrigger=PropertyChanged}"
                         SelectionMode="Extended" />
                     <ListBox
                         Grid.Column="1"
@@ -77,7 +78,7 @@
                         Grid.Column="0"
                         Margin="3"
                         Command="{Binding OpenDirectoryJPEG}"
-                        Content="Путь к JPEG" />
+                        Content="Путь к JPG / JPEG" />
                     <Button
                         Grid.Column="1"
                         Margin="3"
@@ -88,56 +89,35 @@
                 <Grid Grid.Row="3">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
-                        <!--<ColumnDefinition />-->
+                        <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <Button
                         Grid.Column="0"
                         Margin="3"
-                        Content="Отсортировать" />
-                    <!--<Button
+                        Command="{Binding OpenDirectoryMove}"
+                        Content="Путь перемещения" />
+                    <Button
                         Grid.Column="1"
                         Margin="3"
-                        Content="Отсортировать" />-->
+                        Command="{Binding Sorting}"
+                        Content="Отсортировать" />
 
                 </Grid>
             </Grid>
             <Grid Grid.Column="1" Background="LightGray">
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition Height="30" />
-                </Grid.RowDefinitions>
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Foreground="Gray"
+                    TextAlignment="Center">
+                    Выберите JPG / JPEG-фото<LineBreak />
+                    из списка</TextBlock>
                 <Image
                     Grid.Row="0"
+                    MaxHeight="{Binding ElementName=GridViewBox, Path=ActualHeight}"
                     Margin="3"
-                    RenderTransformOrigin="0.5,0.5"
-                    Source="{Binding ElementName=JPEGList, Path=SelectedValue}">
-                    <!--<Image.Source>
-                        <BitmapImage UriSource="{Binding ElementName=JPEGList, Path=SelectedValue}" Rotation="Rotate90" />
-                    </Image.Source>-->
-                    <Image.Style>
-                        <Style TargetType="{x:Type Image}">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding ElementName=rotateCheckBox, Path=IsChecked}" Value="true">
-                                    <Setter Property="RenderTransform">
-                                        <Setter.Value>
-                                            <RotateTransform Angle="-90" />
-                                        </Setter.Value>
-                                    </Setter>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Image.Style>
-                </Image>
-                <StackPanel
-                    Grid.Row="1"
-                    Margin="3"
-                    VerticalAlignment="Center"
-                    Orientation="Horizontal">
-                    <CheckBox
-                        x:Name="rotateCheckBox"
-                        Margin="0,0,6,0"
-                        Content="Развернуть изображение" />
-                </StackPanel>
+                    ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                    Source="{Binding ElementName=JPEGList, Path=SelectedValue}" />
             </Grid>
         </Grid>
         <TextBlock
