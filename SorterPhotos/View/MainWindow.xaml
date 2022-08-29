@@ -15,6 +15,7 @@
     <Window.DataContext>
         <viewmodel:MainViewModel />
     </Window.DataContext>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
