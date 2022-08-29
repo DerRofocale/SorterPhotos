@@ -29,6 +29,31 @@ namespace SorterPhotos.ViewModel
         }
 
 
+        //#region IsFillJPEGButton
+        //private bool _isFillJPEGButton;
+        //public bool IsFillJPEGButtonProp
+        //{
+        //    get { return _isFillJPEGButton; }
+        //    set { SetProperty(ref _isFillJPEGButton, value); }
+        //}
+        //#endregion
+        //#region IsFillCR2Button
+        //private bool _isFillCR2Button;
+        //public bool IsFillCR2ButtonProp
+        //{
+        //    get { return _isFillCR2Button; }
+        //    set { SetProperty(ref _isFillCR2Button, value); }
+        //}
+        //#endregion
+        //#region IsFillMoveButton
+        //private bool _isFillMoveButton;
+        //public bool IsFillMoveButtonProp
+        //{
+        //    get { return _isFillMoveButton; }
+        //    set { SetProperty(ref _isFillMoveButton, value); }
+        //}
+        //#endregion
+
 
         #region IsSorting
         private bool _isSorting = false;
@@ -203,7 +228,7 @@ namespace SorterPhotos.ViewModel
         private DelegateCommand _sorting;
         public DelegateCommand Sorting =>
             _sorting ?? (_sorting = new DelegateCommand(ExecuteSorting, CanExecuteSorting)
-            .ObservesProperty(()=>PathJPEGProp)
+            .ObservesProperty(() => PathJPEGProp)
             .ObservesProperty(() => PathCR2Prop)
             .ObservesProperty(() => PathMoveProp));
 
@@ -239,7 +264,11 @@ namespace SorterPhotos.ViewModel
 
         bool CanExecuteSorting()
         {
-            return !String.IsNullOrEmpty(PathJPEGProp) && !String.IsNullOrEmpty(PathCR2Prop) && !String.IsNullOrEmpty(PathMoveProp);
+            return !String.IsNullOrEmpty(PathJPEGProp) &&
+                !String.IsNullOrEmpty(PathCR2Prop) &&
+                !String.IsNullOrEmpty(PathMoveProp) &&
+                FilesCR2Prop.Count != 0 &&
+                FilesJPEGProp.Count != 0;
         }
         #endregion
     }
